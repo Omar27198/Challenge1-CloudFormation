@@ -1,4 +1,4 @@
-# Advanced Cloud DevOps Nanodegree Program - Challenge1-CloudFormation
+# Challenge1-CloudFormation
 Challenge 1 - Create an EC2 instance in a given VPC
 
 Write a CloudFormation script that will create the following two Resources: AWS::EC2::SecurityGroup and AWS::EC2::Instance.
