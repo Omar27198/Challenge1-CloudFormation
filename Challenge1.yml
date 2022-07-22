@@ -1,0 +1,36 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: Omar Adel / Udacity - Challenge 1
+Resources:
+  mywebAccessSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties: 
+      GroupDescription: SecurityGroupUsingCloudFormation
+      GroupName: MyFirstCloudFormationSG
+      VpcId: vpc-0c3691439040f8d3f
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: 80
+          ToPort: 80
+          CidrIp: 0.0.0.0/0
+      SecurityGroupEgress:
+        - IpProtocol: -1
+          FromPort: -1
+          ToPort: -1
+          CidrIp: 0.0.0.0/0
+
+  mywebServerInstance:
+    Type: AWS::EC2::Instance
+    Properties: 
+      ImageId: ami-0cff7528ff583bf9a
+      InstanceInitiatedShutdownBehavior: terminate
+      InstanceType: t3.micro
+      Monitoring: true 
+      SecurityGroups: 
+        - MyFirstCloudFormationSG
+      UserData: 
+        Fn::Base64: !Sub |
+          #!/bin/bash
+          sudo yum update -y
+          sudo yum install -y httpd
+          sudo systemctl start httpd
+          sudo systemctl enable httpd
